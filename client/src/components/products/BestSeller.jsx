@@ -37,9 +37,7 @@ const BestSeller = () => {
         {tabs.map((el) => (
           <span
             key={el.id}
-            className={`font-semibold uppercase pr-8  cursor-pointer ${
-              activedTab === el.id ? "text-black" : "text-gray-400"
-            }`}
+            className={`font-semibold uppercase pr-8  cursor-pointer ${activedTab === el.id ? "text-black" : "text-gray-400"}`}
             onClick={() => setActivedTab(el.id)}
           >
             {el.name}
@@ -47,11 +45,7 @@ const BestSeller = () => {
         ))}
       </div>
       <div className="mt-4 mx-[-10px]">
-        <CustomSlider
-          products={products}
-          activedTab={activedTab}
-          slidesToShow={3}
-        />
+        <CustomSlider products={products} activedTab={activedTab} slidesToShow={4} />
       </div>
     </div>
   );

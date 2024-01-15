@@ -12,13 +12,7 @@ import { useNavigate } from "react-router-dom";
 import path from "../../utils/path";
 import Comment from "../vote/Comment";
 
-const ProductInformation = ({
-  totalRatings,
-  ratings,
-  nameProduct,
-  pid,
-  rerender,
-}) => {
+const ProductInformation = ({ totalRatings, ratings, nameProduct, pid, rerender }) => {
   const [activedTab, setActivedTab] = useState(1);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -47,19 +41,14 @@ const ProductInformation = ({
       dispatch(
         showModal({
           isShowModal: true,
-          modalChildren: (
-            <VoteOption
-              nameProduct={nameProduct}
-              handleSubmitVoteOption={handleSubmitVoteOption}
-            />
-          ),
+          modalChildren: <VoteOption nameProduct={nameProduct} handleSubmitVoteOption={handleSubmitVoteOption} />,
         })
       );
     }
   };
   return (
-    <div>
-      <div className="flex items-center gap-2 relative bottom-[-1px]">
+    <div className="tab-review">
+      {/* <div className="flex items-center gap-2 relative bottom-[-1px]">
         {productInfoTabs.map((el) => (
           <span
             className={`py-2 px-4 cursor-pointer ${
@@ -77,7 +66,7 @@ const ProductInformation = ({
       <div className="w-full border p-4">
         {productInfoTabs.some((el) => el.id === activedTab) &&
           productInfoTabs.find((el) => el.id === activedTab)?.content}
-      </div>
+      </div> */}
 
       <div className="flex flex-col py-8 w-main">
         <div className="flex border">
@@ -94,14 +83,7 @@ const ProductInformation = ({
             {Array.from(Array(5).keys())
               .reverse()
               .map((el) => (
-                <VoteBar
-                  key={el}
-                  number={el + 1}
-                  ratingTotal={ratings?.length}
-                  ratingCount={
-                    ratings?.filter((i) => i.star === el + 1)?.length
-                  }
-                />
+                <VoteBar key={el} number={el + 1} ratingTotal={ratings?.length} ratingCount={ratings?.filter((i) => i.star === el + 1)?.length} />
               ))}
           </div>
         </div>

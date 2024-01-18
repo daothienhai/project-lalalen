@@ -1,18 +1,8 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { InputField, Button, Loading } from "../../components";
-import {
-  apiForgotPassword,
-  apiLogin,
-  apiRegister,
-  apiFinalRegister,
-} from "../../apis/user";
+import { apiForgotPassword, apiLogin, apiRegister, apiFinalRegister } from "../../apis/user";
 import Swal from "sweetalert2";
-import {
-  Link,
-  useLocation,
-  useNavigate,
-  useSearchParams,
-} from "react-router-dom";
+import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import path from "../../utils/path";
 import { login } from "../../store/user/userSlice";
 import { useDispatch } from "react-redux";
@@ -60,9 +50,7 @@ const Login = () => {
   // Submit:
   const handleSubmit = useCallback(async () => {
     const { firstname, lastname, mobile, ...data } = payload;
-    const invalids = isRegister
-      ? validate(payload, setInvalidFields)
-      : validate(data, setInvalidFields);
+    const invalids = isRegister ? validate(payload, setInvalidFields) : validate(data, setInvalidFields);
     if (invalids === 0) {
       if (isRegister) {
         dispatch(showModal({ isShowModal: true, modalChildren: <Loading /> }));
@@ -86,9 +74,7 @@ const Login = () => {
               userData: rs.userData,
             })
           );
-          searchParams.get("redirect")
-            ? navigate(searchParams.get("redirect"))
-            : navigate(`/${path.HOME}`);
+          searchParams.get("redirect") ? navigate(searchParams.get("redirect")) : navigate(`/${path.HOME}`);
         } else Swal.fire("Oops!", rs.mes, "error");
       }
     }
@@ -112,21 +98,9 @@ const Login = () => {
       {isVerifiedEmail && (
         <div className="absolute top-0 left-0 right-0 bottom-0 bg-overlay z-50 flex flex-col justify-center items-center">
           <div className="bg-white w-[500px] rounded-md p-8">
-            <h4 className="">
-              We sent a code to your mail. Please check your mail and enter your
-              code:
-            </h4>
-            <input
-              type="text"
-              value={token}
-              onChange={(e) => setToken(e.target.value)}
-              className="p-2 border rounded-md outline-none"
-            />
-            <button
-              type="button"
-              className="px-4 py-2 bg-blue-500 font-semibold text-white rounded-md ml-4"
-              onClick={finalRegister}
-            >
+            <h4 className="">We sent a code to your mail. Please check your mail and enter your code:</h4>
+            <input type="text" value={token} onChange={(e) => setToken(e.target.value)} className="p-2 border rounded-md outline-none" />
+            <button type="button" className="px-4 py-2 bg-blue-500 font-semibold text-white rounded-md ml-4" onClick={finalRegister}>
               Submit
             </button>
           </div>
@@ -146,30 +120,17 @@ const Login = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
             <div className="flex items-center justify-end w-full gap-4">
-              <Button
-                name="Submit"
-                handleOnClick={handleForgotPassword}
-                style="px-4 py-2 rounded-md text-white bg-blue-500 text-semibold my-2"
-              />
-              <Button
-                name="Back"
-                handleOnClick={() => setIsForgotPassword(false)}
-              />
+              <Button name="Submit" handleOnClick={handleForgotPassword} style="px-4 py-2 rounded-md text-white bg-blue-500 text-semibold my-2" />
+              <Button name="Back" handleOnClick={() => setIsForgotPassword(false)} />
             </div>
           </div>
         </div>
       )}
 
-      <img
-        src="https://cdn5.f-cdn.com/contestentries/1578585/21468461/5d62b49ac544b_thumb900.jpg"
-        alt=""
-        className="w-full h-full object-cover"
-      />
+      <img src="https://cdn5.f-cdn.com/contestentries/1578585/21468461/5d62b49ac544b_thumb900.jpg" alt="" className="w-full h-full object-cover" />
       <div className="absolute top-0 bottom-0 right-1/2 items-center justify-center flex">
         <div className="p-8 bg-white flex flex-col items-center rounded-md min-w-[500px]">
-          <h1 className="text-[28px] font-semibold text-main mb-8">
-            {isRegister ? "Register" : "Login"}
-          </h1>
+          <h1 className="text-[28px] font-semibold text-main mb-8">{isRegister ? "Đăng ký" : "Đăng nhập"}</h1>
           {isRegister && (
             <div className="flex w-full items-center gap-2">
               <InputField
@@ -188,13 +149,7 @@ const Login = () => {
               />
             </div>
           )}
-          <InputField
-            value={payload.email}
-            setValue={setPayLoad}
-            nameKey="email"
-            invalidFields={invalidFields}
-            setInvalidFields={setInvalidFields}
-          />
+          <InputField value={payload.email} setValue={setPayLoad} nameKey="email" invalidFields={invalidFields} setInvalidFields={setInvalidFields} />
           {isRegister && (
             <InputField
               value={payload.mobile}
@@ -213,42 +168,26 @@ const Login = () => {
             invalidFields={invalidFields}
             setInvalidFields={setInvalidFields}
           />
-          <Button
-            children={isRegister ? "Register" : "Login"}
-            handleOnClick={handleSubmit}
-            fw
-          />
+          <Button children={isRegister ? "Đăng ký" : "Đăng nhập"} handleOnClick={handleSubmit} fw />
           <div className="flex items-center justify-between my-2 w-full text-sm">
             {!isRegister && (
-              <span
-                onClick={() => setIsForgotPassword(true)}
-                className="text-blue-500 hover:underline cursor-pointer"
-              >
-                Forgot your account?
+              <span onClick={() => setIsForgotPassword(true)} className="text-blue-500 hover:underline cursor-pointer">
+                Quên tài khoản?
               </span>
             )}
             {!isRegister && (
-              <span
-                className="text-blue-500 hover:underline cursor-pointer"
-                onClick={() => setIsRegister(true)}
-              >
-                Create account
+              <span className="text-blue-500 hover:underline cursor-pointer" onClick={() => setIsRegister(true)}>
+                Tạo tài khoản
               </span>
             )}
             {isRegister && (
-              <span
-                className="text-blue-500 hover:underline cursor-pointer w-full text-center"
-                onClick={() => setIsRegister(false)}
-              >
-                Go Login
+              <span className="text-blue-500 hover:underline cursor-pointer w-full text-center" onClick={() => setIsRegister(false)}>
+                Tới đăng nhập
               </span>
             )}
           </div>
-          <Link
-            className="text-blue-500 text-sm hover:underline cursor-pointer"
-            to={`/${path.HOME}`}
-          >
-            Go home?
+          <Link className="text-blue-500 text-sm hover:underline cursor-pointer" to={`/${path.HOME}`}>
+            Tới trang chủ?
           </Link>
         </div>
       </div>

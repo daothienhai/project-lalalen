@@ -88,8 +88,8 @@ const ProductInformation = ({ totalRatings, ratings, nameProduct, pid, rerender 
           </div>
         </div>
         <div className="p-4 flex items-center justify-center text-sm flex-col gap-2">
-          <span>Do you review this product?</span>
-          <Button handleOnClick={handleVoteNow}>Vote now!</Button>
+          <span>Bạn có đánh giá sản phẩm?</span>
+          <Button handleOnClick={handleVoteNow}>Đánh giá ngay!</Button>
         </div>
         <div className="flex flex-col gap-4">
           {ratings?.map((el) => (

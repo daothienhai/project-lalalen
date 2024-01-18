@@ -21,16 +21,7 @@ import clsx from "clsx";
 
 const { AiFillEye, BsFillSuitHeartFill } = icons;
 
-const Product = ({
-  productData,
-  isNew,
-  normal,
-  navigate,
-  dispatch,
-  location,
-  pid,
-  className,
-}) => {
+const Product = ({ productData, isNew, normal, navigate, dispatch, location, pid, className }) => {
   const [isShowOption, setIsShowOption] = useState(false);
   const { current } = useSelector((state) => state.user);
   const handleClickOptions = async (e, flag) => {
@@ -77,12 +68,7 @@ const Product = ({
       dispatch(
         showModal({
           isShowModal: true,
-          modalChildren: (
-            <DetailProduct
-              data={{ pid: productData?._id, category: productData?.category }}
-              isQuickView
-            />
-          ),
+          modalChildren: <DetailProduct data={{ pid: productData?._id, category: productData?.category }} isQuickView />,
         })
       );
     }
@@ -91,13 +77,7 @@ const Product = ({
     <div className={clsx("w-full text-base px-[10px]", className)}>
       <div
         className="w-full border p-[15px] flex flex-col items-center"
-        onClick={(e) =>
-          navigate(
-            `/${productData?.category?.toLowerCase()}/${productData?._id}/${
-              productData?.title
-            }`
-          )
-        }
+        onClick={(e) => navigate(`/${productData?.category?.toLowerCase()}/${productData?._id}/${productData?.title}`)}
         onMouseEnter={(e) => {
           e.stopPropagation();
           setIsShowOption(true);
@@ -110,27 +90,19 @@ const Product = ({
         <div className="w-full relative">
           {isShowOption && (
             <div className="absolute bottom-[-10px] left-0 right-0 flex justify-center gap-2 animate-slide-top">
-              <span
-                title="Quick view"
-                onClick={(e) => handleClickOptions(e, "QUICK_VIEW")}
-              >
+              <span title="Quick view" onClick={(e) => handleClickOptions(e, "QUICK_VIEW")}>
                 <SelectOption icon={<AiFillEye />} />
               </span>
-              {current?.cart?.some(
-                (el) => el.product === productData._id.toString()
-              ) ? (
+              {current?.cart?.some((el) => el.product === productData._id.toString()) ? (
                 <span title="Added to Cart">
                   <SelectOption icon={<BsFillCartCheckFill color="green" />} />
                 </span>
               ) : (
-                <span
-                  title="Add to Cart"
-                  onClick={(e) => handleClickOptions(e, "CART")}
-                >
+                <span title="Add to Cart" onClick={(e) => handleClickOptions(e, "CART")}>
                   <SelectOption icon={<BsFillCartPlusFill />} />
                 </span>
               )}
-              <span
+              {/* <span
                 title="Add to Wishlist"
                 onClick={(e) => handleClickOptions(e, "WISHLIST")}
               >
@@ -145,32 +117,21 @@ const Product = ({
                     />
                   }
                 />
-              </span>
+              </span> */}
             </div>
           )}
           <img
-            src={
-              productData?.thumb ||
-              "https://apollobattery.com.au/wp-content/uploads/2022/08/default-product-image.png"
-            }
+            src={productData?.thumb || "https://apollobattery.com.au/wp-content/uploads/2022/08/default-product-image.png"}
             alt=""
             className="w-[274px] h-[274px]  object-cover"
           />
-          {!normal && (
-            <img
-              src={isNew ? label : trending}
-              alt=""
-              className={`absolute w-[100px] h-[35px] top-0 right-[0] object-cover`}
-            />
-          )}
+          {!normal && <img src={isNew ? label : trending} alt="" className={`absolute w-[100px] h-[35px] top-0 right-[0] object-cover`} />}
         </div>
         <div className="flex flex-col mt-[15px] items-start gap-1 w-full">
           <span className="flex h-4">
-            {renderStarFromNumber(productData?.totalRatings)?.map(
-              (el, index) => (
-                <span key={index}>{el}</span>
-              )
-            )}
+            {renderStarFromNumber(productData?.totalRatings)?.map((el, index) => (
+              <span key={index}>{el}</span>
+            ))}
           </span>
           <span className="line-clamp-1">{productData?.title}</span>
           <span>{`${formatMoney(productData?.price)} VNĐ`}</span>

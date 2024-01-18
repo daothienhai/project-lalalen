@@ -32,32 +32,32 @@ const { RiTruckFill, BsShieldShaded, BsReplyFill, FaTty, AiFillGift } = icons;
 export const productExtraInfomation = [
   {
     id: 1,
-    title: "Guarantee",
-    sub: "Quality Checked",
+    title: "Bảo đảm",
+    sub: "Kiểm tra chất lượng",
     icon: <BsShieldShaded />,
   },
   {
     id: 2,
-    title: "Free Shipping",
-    sub: "Free On All Products",
+    title: "Miễn phí giao hàng",
+    sub: "Tất cả sản phẩm",
     icon: <RiTruckFill />,
   },
   {
     id: 3,
-    title: "Special Gift Cards",
-    sub: "Special Gift Cards",
+    title: "Thẻ quà tặng đặc biệt",
+    sub: "Quà tặng đặc biệt",
     icon: <AiFillGift />,
   },
   {
     id: 4,
-    title: "Free Return",
-    sub: "Within 7 Days",
+    title: "Hoàn trả miễn phí",
+    sub: "Trong vòng 7 ngày",
     icon: <BsReplyFill />,
   },
   {
     id: 5,
-    title: "Consultancy",
-    sub: "Lifetime 24/7/356",
+    title: "Tư vấn",
+    sub: "Trọn đời 24/7/356",
     icon: <FaTty />,
   },
 ];
@@ -103,18 +103,7 @@ In preparation for your delivery, please remove existing furniture, pictures, mi
   },
 ];
 
-export const colors = [
-  "black",
-  "brown",
-  "gray",
-  "white",
-  "pink",
-  "yellow",
-  "orange",
-  "purple",
-  "green",
-  "blue",
-];
+export const colors = ["black", "brown", "gray", "white", "pink", "yellow", "orange", "purple", "green", "blue"];
 export const sorts = [
   {
     id: 1,

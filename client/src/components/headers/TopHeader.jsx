@@ -31,20 +31,17 @@ const TopHeader = () => {
   return (
     <div className="h-[38px] py-[10px] w-full bg-main flex items-center justify-center">
       <div className="w-main flex items-center justify-between text-xs text-white">
-        <span>ORDER ONLINE OR CALL US 0989764356</span>
+        <span>GỌI NGAY: 0989764356</span>
         {isLoggedIn && current ? (
           <div className="flex gap-4 text-sm items-center">
             <span>{`Welcome, ${current?.lastname} ${current?.firstname}`}</span>
-            <span
-              onClick={() => dispatch(logout())}
-              className="hover:rounded-full hover:bg-gray-200 cursor-pointer hover:text-main p-2"
-            >
+            <span onClick={() => dispatch(logout())} className="hover:rounded-full hover:bg-gray-200 cursor-pointer hover:text-main p-2">
               <AiOutlineLogout size={18} />
             </span>
           </div>
         ) : (
           <Link className="hover:text-gray-800" to={`/${path.LOGIN}`}>
-            Sign In or Create Account
+            Đăng nhập
           </Link>
         )}
       </div>

@@ -1,21 +1,10 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { createSearchParams, useParams } from "react-router-dom";
 import { apiGetProduct, apiGetProducts, apiUpdateCart } from "../../apis";
-import {
-  Breadcrumb,
-  Button,
-  CustomSlider,
-  ProductExtraInforItem,
-  ProductInformation,
-  SelectQuantity,
-} from "../../components";
+import { Breadcrumb, Button, CustomSlider, ProductExtraInforItem, ProductInformation, SelectQuantity } from "../../components";
 import Slider from "react-slick";
 import ReactImageMagnify from "react-image-magnify";
-import {
-  formatMoney,
-  formatPrice,
-  renderStarFromNumber,
-} from "../../utils/helpers";
+import { formatMoney, formatPrice, renderStarFromNumber } from "../../utils/helpers";
 import { productExtraInfomation } from "../../utils/contants";
 import DOMPurify from "dompurify";
 import clsx from "clsx";
@@ -163,43 +152,26 @@ const DetailProduct = ({ isQuickView, data, navigate, location, dispatch }) => {
       {!isQuickView && (
         <div className="h-[81px] flex justify-center items-center">
           <div ref={titleRef} className="w-main">
-            <h3 className="font-semibold">
-              {currentProduct.title || product?.title}
-            </h3>
-            <Breadcrumb
-              title={currentProduct.title || product?.title}
-              category={category}
-            />
+            <h3 className="font-semibold">{currentProduct.title || product?.title}</h3>
+            <Breadcrumb title={currentProduct.title || product?.title} category={category} />
           </div>
         </div>
       )}
       <div
         onClick={(e) => e.stopPropagation()}
-        className={clsx(
-          "bg-white m-auto mt-4 flex",
-          isQuickView
-            ? "max-w-[900px] gap-16 p-8 max-h-[80vh] overflow-y-auto"
-            : "w-main"
-        )}
+        className={clsx("bg-white m-auto mt-4 flex", isQuickView ? "max-w-[900px] gap-16 p-8 max-h-[80vh] overflow-y-auto" : "w-main")}
       >
-        <div
-          className={clsx(
-            "flex flex-col gap-4",
-            isQuickView ? "w-1/2" : "w-2/5"
-          )}
-        >
+        <div className={clsx("flex flex-col gap-4", isQuickView ? "w-1/2" : "w-2/5")}>
           <div className="w-[458px] h-[458px] flex items-center border overflow-hidden">
             <ReactImageMagnify
               {...{
                 smallImage: {
                   alt: "Zoom img product",
                   isFluidWidth: true,
-                  src:
-                    currentProduct.thumb || currentImage || "default-image-url", // Thay "default-image-url" bằng URL mặc định nếu cả hai đều là null.
+                  src: currentProduct.thumb || currentImage || "default-image-url", // Thay "default-image-url" bằng URL mặc định nếu cả hai đều là null.
                 },
                 largeImage: {
-                  src:
-                    currentProduct.thumb || currentImage || "default-image-url",
+                  src: currentProduct.thumb || currentImage || "default-image-url",
                   width: 1800,
                   height: 1500,
                 },
@@ -208,10 +180,7 @@ const DetailProduct = ({ isQuickView, data, navigate, location, dispatch }) => {
           </div>
 
           <div className="w-[458px]">
-            <Slider
-              className="image-slider flex gap-2 justify-between"
-              {...settings}
-            >
+            <Slider className="image-slider flex gap-2 justify-between" {...settings}>
               {currentProduct.images?.length === 0 &&
                 product?.images?.map((el) => (
                   <div className="flex-1" key={el}>
@@ -237,25 +206,18 @@ const DetailProduct = ({ isQuickView, data, navigate, location, dispatch }) => {
             </Slider>
           </div>
         </div>
-        <div
-          className={clsx(
-            "pr-[24px] flex flex-col gap-4",
-            isQuickView ? "w-1/2" : "w-2/5"
-          )}
-        >
+        <div className={clsx("pr-[24px] flex flex-col gap-4", isQuickView ? "w-1/2" : "w-2/5")}>
           <div className="flex items-center justify-between">
-            <h2 className="text-[30px] font-semibold">{`${formatMoney(
-              formatPrice(currentProduct.price || product?.price)
-            )} VNĐ`}</h2>
-            <span className="text-sm text-main">{`In stock: ${product?.quantity}`}</span>
+            <h2 className="text-[30px] font-semibold">{`${formatMoney(formatPrice(currentProduct.price || product?.price))} VNĐ`}</h2>
+            {/* <span className="text-sm text-main">{`In stock: ${product?.quantity}`}</span> */}
           </div>
           <div className="flex items-center gap-1">
             {renderStarFromNumber(product?.totalRatings)?.map((el, index) => (
               <span key={index}>{el}</span>
             ))}
-            <span className="text-sm text-main italic">{`(Sold: ${product?.sold} pieces)`}</span>
+            {/* <span className="text-sm text-main italic">{`(Sold: ${product?.sold} pieces)`}</span> */}
           </div>
-          <ul className="list-square text-sm text-gray-500 pl-4">
+          <ul className="list-square text-sm text-gray-500">
             {product?.description?.length > 1 &&
               product?.description?.map((el) => (
                 <li className="leading-6" key={el}>
@@ -271,21 +233,14 @@ const DetailProduct = ({ isQuickView, data, navigate, location, dispatch }) => {
               ></div>
             )}
           </ul>
-          <div className="my-4 flex gap-4">
-            <span className="font-bold">Color:</span>
-            <div className="flex flex-wrap gap-4 items-center w-full">
+          <div className="flex items-center gap-4">
+            <div className="font-bold">Màu sắc:</div>
+            <div className="flex flex-wrap gap-4 items-center">
               <div
                 onClick={() => setVariant(null)}
-                className={clsx(
-                  "flex items-center gap-2 p-2 border cursor-pointer",
-                  !variant && "border-red-500"
-                )}
+                className={clsx("flex items-center gap-2 p-2 border cursor-pointer", !variant && "border-red-500")}
               >
-                <img
-                  src={product?.thumb}
-                  alt="thumb"
-                  className="w-8 h-8 rounded-md object-cover"
-                />
+                <img src={product?.thumb} alt="thumb" className="w-8 h-8 rounded-md object-cover" />
                 <span className="flex flex-col">
                   <span>{product?.color}</span>
                   <span className="text-sm">{product?.price}</span>
@@ -295,16 +250,9 @@ const DetailProduct = ({ isQuickView, data, navigate, location, dispatch }) => {
                 <div
                   key={el.sku}
                   onClick={() => setVariant(el.sku)}
-                  className={clsx(
-                    "flex items-center gap-2 p-2 border cursor-pointer",
-                    variant === el.sku && "border-red-500"
-                  )}
+                  className={clsx("flex items-center gap-2 p-2 border cursor-pointer", variant === el.sku && "border-red-500")}
                 >
-                  <img
-                    src={el?.thumb}
-                    alt="thumb"
-                    className="w-8 h-8 rounded-md object-cover"
-                  />
+                  <img src={el?.thumb} alt="thumb" className="w-8 h-8 rounded-md object-cover" />
                   <span className="flex flex-col">
                     <span>{el?.color}</span>
                     <span className="text-sm">{el?.price}</span>
@@ -315,28 +263,19 @@ const DetailProduct = ({ isQuickView, data, navigate, location, dispatch }) => {
           </div>
           <div className="flex flex-col gap-8">
             <div className="flex items-center gap-4">
-              <span className="font-semibold">Quantity</span>
-              <SelectQuantity
-                quantity={quantity}
-                handleQuantity={handleQuantity}
-                handleChangeQuantity={handleChangeQuantity}
-              />
+              <span className="font-semibold">Số lượng:</span>
+              <SelectQuantity quantity={quantity} handleQuantity={handleQuantity} handleChangeQuantity={handleChangeQuantity} />
             </div>
 
             <Button handleOnClick={handleAddToCart} fw>
-              Add to cart
+              Thêm vào giỏ hàng
             </Button>
           </div>
         </div>
         {!isQuickView && (
           <div className=" w-1/5">
             {productExtraInfomation.map((el) => (
-              <ProductExtraInforItem
-                key={el.id}
-                title={el.title}
-                icon={el.icon}
-                sub={el.sub}
-              />
+              <ProductExtraInforItem key={el.id} title={el.title} icon={el.icon} sub={el.sub} />
             ))}
           </div>
         )}
@@ -354,14 +293,8 @@ const DetailProduct = ({ isQuickView, data, navigate, location, dispatch }) => {
       )}
       {!isQuickView && (
         <div className="w-main m-auto mt-8">
-          <h3 className="text-[20px] font-semibold py-[15px] border-b-2 border-main mb-5">
-            OTHER CUSTOMER ALSO LIKED
-          </h3>
-          <CustomSlider
-            normal={true}
-            products={relatedProducts}
-            slidesToShow={4}
-          />
+          <h3 className="text-[20px] font-semibold py-[15px] border-b-2 border-main mb-5">SẢN PHẨM YÊU THÍCH</h3>
+          <CustomSlider normal={true} products={relatedProducts} slidesToShow={4} />
         </div>
       )}
       <div className="h-[100px] w-full"></div>

@@ -1,12 +1,12 @@
-import React, { memo, useEffect } from "react";
-import path from "../../utils/path";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { getCurrent } from "../../store/user/asyncActions";
-import icons from "../../utils/icons";
-import { clearMessage, logout } from "../../store/user/userSlice";
-import Swal from "sweetalert2";
-import { navigation } from "../../utils/contants";
+import React, { memo, useEffect } from 'react';
+import path from '../../utils/path';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCurrent } from '../../store/user/asyncActions';
+import icons from '../../utils/icons';
+import { clearMessage, logout } from '../../store/user/userSlice';
+import Swal from 'sweetalert2';
+import { navigation } from '../../utils/contants';
 
 const { AiOutlineLogout } = icons;
 const TopHeader = () => {
@@ -23,7 +23,7 @@ const TopHeader = () => {
   }, [dispatch, isLoggedIn]);
   useEffect(() => {
     if (mes)
-      Swal.fire("Oops!", mes, "info").then(() => {
+      Swal.fire('Oops!', mes, 'info').then(() => {
         dispatch(clearMessage());
         navigate(`/${path.LOGIN}`);
       });

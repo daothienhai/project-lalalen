@@ -1,23 +1,23 @@
-import React, { memo, useState } from "react";
-import { formatMoney } from "../../utils/helpers";
-import label from "../../assets/new.png";
-import trending from "../../assets/trending.png";
-import labelBlue from "../../assets/trending.png";
-import { renderStarFromNumber } from "../../utils/helpers";
-import { SelectOption } from "..";
-import icons from "../../utils/icons";
-import withBaseComponent from "../../hocs/withBaseComponent";
-import { showModal } from "../../store/app/appSlice";
-import DetailProduct from "../../pages/public/DetailProduct";
-import { apiUpdateCart } from "../../apis";
-import { toast } from "react-toastify";
-import { getCurrent } from "../../store/user/asyncActions";
-import { useSelector } from "react-redux";
-import Swal from "sweetalert2";
-import path from "../../utils/path";
-import { BsFillCartCheckFill, BsFillCartPlusFill } from "react-icons/bs";
-import { createSearchParams } from "react-router-dom";
-import clsx from "clsx";
+import React, { memo, useState } from 'react';
+import { formatMoney } from '../../utils/helpers';
+import label from '../../assets/new.png';
+import trending from '../../assets/trending.png';
+import labelBlue from '../../assets/trending.png';
+import { renderStarFromNumber } from '../../utils/helpers';
+import { SelectOption } from '..';
+import icons from '../../utils/icons';
+import withBaseComponent from '../../hocs/withBaseComponent';
+import { showModal } from '../../store/app/appSlice';
+import DetailProduct from '../../pages/public/DetailProduct';
+import { apiUpdateCart } from '../../apis';
+import { toast } from 'react-toastify';
+import { getCurrent } from '../../store/user/asyncActions';
+import { useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
+import path from '../../utils/path';
+import { BsFillCartCheckFill, BsFillCartPlusFill } from 'react-icons/bs';
+import { createSearchParams } from 'react-router-dom';
+import clsx from 'clsx';
 
 const { AiFillEye, BsFillSuitHeartFill } = icons;
 
@@ -26,15 +26,15 @@ const Product = ({ productData, isNew, normal, navigate, dispatch, location, pid
   const { current } = useSelector((state) => state.user);
   const handleClickOptions = async (e, flag) => {
     e.stopPropagation();
-    if (flag === "CART") {
+    if (flag === 'CART') {
       if (!current)
         return Swal.fire({
-          title: "Almost...",
-          text: "Please login first!",
-          icon: "info",
-          cancelButtonText: "Not now!",
+          title: 'Almost...',
+          text: 'Please login first!',
+          icon: 'info',
+          cancelButtonText: 'Not now!',
           showCancelButton: true,
-          confirmButtonText: "Go login page",
+          confirmButtonText: 'Go login page',
         }).then(async (rs) => {
           if (rs.isConfirmed)
             navigate({
@@ -64,7 +64,7 @@ const Product = ({ productData, isNew, normal, navigate, dispatch, location, pid
     //     toast.success(response.mes);
     //   } else toast.error(response.mes);
     // }
-    if (flag === "QUICK_VIEW") {
+    if (flag === 'QUICK_VIEW') {
       dispatch(
         showModal({
           isShowModal: true,
@@ -74,7 +74,7 @@ const Product = ({ productData, isNew, normal, navigate, dispatch, location, pid
     }
   };
   return (
-    <div className={clsx("w-full text-base px-[10px]", className)}>
+    <div className={clsx('w-full text-base px-[10px]', className)}>
       <div
         className="w-full border p-[15px] flex flex-col items-center"
         onClick={(e) => navigate(`/${productData?.category?.toLowerCase()}/${productData?._id}/${productData?.title}`)}
@@ -87,10 +87,10 @@ const Product = ({ productData, isNew, normal, navigate, dispatch, location, pid
           setIsShowOption(false);
         }}
       >
-        <div className="w-full relative">
+        <div className="w-full relative flex justify-center">
           {isShowOption && (
             <div className="absolute bottom-[-10px] left-0 right-0 flex justify-center gap-2 animate-slide-top">
-              <span title="Quick view" onClick={(e) => handleClickOptions(e, "QUICK_VIEW")}>
+              <span title="Quick view" onClick={(e) => handleClickOptions(e, 'QUICK_VIEW')}>
                 <SelectOption icon={<AiFillEye />} />
               </span>
               {current?.cart?.some((el) => el.product === productData._id.toString()) ? (
@@ -98,7 +98,7 @@ const Product = ({ productData, isNew, normal, navigate, dispatch, location, pid
                   <SelectOption icon={<BsFillCartCheckFill color="green" />} />
                 </span>
               ) : (
-                <span title="Add to Cart" onClick={(e) => handleClickOptions(e, "CART")}>
+                <span title="Add to Cart" onClick={(e) => handleClickOptions(e, 'CART')}>
                   <SelectOption icon={<BsFillCartPlusFill />} />
                 </span>
               )}
@@ -121,7 +121,7 @@ const Product = ({ productData, isNew, normal, navigate, dispatch, location, pid
             </div>
           )}
           <img
-            src={productData?.thumb || "https://apollobattery.com.au/wp-content/uploads/2022/08/default-product-image.png"}
+            src={productData?.thumb || 'https://apollobattery.com.au/wp-content/uploads/2022/08/default-product-image.png'}
             alt=""
             className="w-[274px] h-[274px]  object-cover"
           />

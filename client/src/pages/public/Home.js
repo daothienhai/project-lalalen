@@ -1,11 +1,18 @@
-import React from "react";
-import { Sidebar, Banner, BestSeller, DealDaily, FeatureProducts, CustomSlider } from "../../components";
-import { useSelector } from "react-redux";
-import icons from "../../utils/icons";
+import React, { useEffect } from 'react';
+
+import { Sidebar, Banner, BestSeller, DealDaily, FeatureProducts, CustomSlider } from '../../components';
+import { useSelector, useDispatch } from 'react-redux';
+import icons from '../../utils/icons';
+import { getFeatureProducts } from '../../store/products/asyncActions';
 const { IoIosArrowForward } = icons;
 const Home = () => {
-  const { newProducts } = useSelector((state) => state.products);
+  const dispatch = useDispatch();
+  const { newProducts, featureProducts } = useSelector((state) => state.products);
+
   const { categories } = useSelector((state) => state.app);
+  useEffect(() => {
+    dispatch(getFeatureProducts());
+  }, [dispatch]);
   return (
     <>
       <div className="w-main flex mt-6">
@@ -18,9 +25,12 @@ const Home = () => {
           <BestSeller />
         </div>
       </div>
-      <div className="w-main my-8">
-        <FeatureProducts />
-      </div>
+      {/* <div className="w-main my-8">
+        <h3 className="text-[20px] font-semibold py-[15px] border-b-2 border-main">SẢN PHẨM NỔI BẬT</h3>
+        <div className="mt-4 mx-[-10px] ">
+          <CustomSlider products={featureProducts} slidesToShow={4} />
+        </div>
+      </div> */}
       <div className="w-main my-8">
         <h3 className="text-[20px] font-semibold py-[15px] border-b-2 border-main">SẢN PHẨM MỚI</h3>
         <div className="mt-4 mx-[-10px] ">

@@ -1,16 +1,16 @@
-import React, { memo, useCallback, useState } from "react";
-import { productInfoTabs } from "../../utils/contants";
-import VoteBar from "../vote/VoteBar";
-import { renderStarFromNumber } from "../../utils/helpers";
-import Button from "../buttons/Button";
-import { showModal } from "../../store/app/appSlice";
-import { useDispatch, useSelector } from "react-redux";
-import VoteOption from "../vote/VoteOption";
-import { apiRatings } from "../../apis";
-import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
-import path from "../../utils/path";
-import Comment from "../vote/Comment";
+import React, { memo, useCallback, useState } from 'react';
+import { productInfoTabs } from '../../utils/contants';
+import VoteBar from '../vote/VoteBar';
+import { renderStarFromNumber } from '../../utils/helpers';
+import Button from '../buttons/Button';
+import { showModal } from '../../store/app/appSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import VoteOption from '../vote/VoteOption';
+import { apiRatings } from '../../apis';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
+import path from '../../utils/path';
+import Comment from '../vote/Comment';
 
 const ProductInformation = ({ totalRatings, ratings, nameProduct, pid, rerender }) => {
   const [activedTab, setActivedTab] = useState(1);
@@ -19,7 +19,7 @@ const ProductInformation = ({ totalRatings, ratings, nameProduct, pid, rerender 
   const { isLoggedIn } = useSelector((state) => state.user);
   const handleSubmitVoteOption = async ({ comment, score }) => {
     if (!comment || !pid || !score) {
-      alert("Please vote when click submit");
+      alert('Please vote when click submit');
       return;
     }
     await apiRatings({ star: score, comment, pid, updatedAt: Date.now() });
@@ -29,10 +29,10 @@ const ProductInformation = ({ totalRatings, ratings, nameProduct, pid, rerender 
   const handleVoteNow = () => {
     if (!isLoggedIn) {
       Swal.fire({
-        text: "Login to vote",
-        cancelButtonText: "Cancel",
-        confirmButtonText: "Go login",
-        title: "Oops!",
+        text: 'Login to vote',
+        cancelButtonText: 'Cancel',
+        confirmButtonText: 'Go login',
+        title: 'Oops!',
         showCancelButton: true,
       }).then((rs) => {
         if (rs.isConfirmed) navigate(`/${path.LOGIN}`);
@@ -68,7 +68,7 @@ const ProductInformation = ({ totalRatings, ratings, nameProduct, pid, rerender 
           productInfoTabs.find((el) => el.id === activedTab)?.content}
       </div> */}
 
-      <div className="flex flex-col py-8 w-main">
+      <div className="flex flex-col py-8 xs:p-0">
         <div className="flex border">
           <div className="flex-4 flex flex-col items-center justify-center">
             <span className="font-semibold text-3xl">{`${totalRatings}/5`}</span>

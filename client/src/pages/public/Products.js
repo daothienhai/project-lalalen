@@ -1,20 +1,9 @@
-import React, { useCallback, useEffect, useState } from "react";
-import {
-  createSearchParams,
-  useNavigate,
-  useParams,
-  useSearchParams,
-} from "react-router-dom";
-import {
-  Breadcrumb,
-  InputSelect,
-  Pagination,
-  Product,
-  SearchItem,
-} from "../../components";
-import { apiGetProducts } from "../../apis";
-import Masonry from "react-masonry-css";
-import { sorts } from "../../utils/contants";
+import React, { useCallback, useEffect, useState } from 'react';
+import { createSearchParams, useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { Breadcrumb, InputSelect, Pagination, Product, SearchItem } from '../../components';
+import { apiGetProducts } from '../../apis';
+import Masonry from 'react-masonry-css';
+import { sorts } from '../../utils/contants';
 
 const breakpointColumnsObj = {
   default: 4,
@@ -28,11 +17,11 @@ const Products = () => {
   const [products, setProducts] = useState(null);
   const [activeClick, setActiveClick] = useState(null);
   const [params] = useSearchParams();
-  const [sort, setSort] = useState("");
+  const [sort, setSort] = useState('');
   const { category } = useParams();
 
   const fetchProductsByCategory = async (queries) => {
-    if (category && category !== "products") queries.category = category;
+    if (category && category !== 'products') queries.category = category;
     const response = await apiGetProducts(queries);
     if (response.success) setProducts(response);
   };
@@ -41,10 +30,7 @@ const Products = () => {
     let priceQuery = {};
     if (queries.to && queries.from) {
       priceQuery = {
-        $and: [
-          { price: { gte: queries.from } },
-          { price: { lte: queries.to } },
-        ],
+        $and: [{ price: { gte: queries.from } }, { price: { lte: queries.to } }],
       };
       delete queries.price;
     } else {
@@ -88,40 +74,23 @@ const Products = () => {
           <Breadcrumb category={category} />
         </div>
       </div>
-      <div className="w-main border p-4 flex justify-between mt-8 m-auto">
-        <div className="w-4/5 flex-auto flex flex-col gap-3">
+      <div className="w-main xl:border p-4 flex justify-between mt-8 m-auto xs:flex-col">
+        <div className="w-4/5 flex-auto flex flex-col gap-3 xs:mb-4 xs:w-full">
           <span className="font-semibold text-sm">Filter by</span>
           <div className="flex items-center gap-4">
-            <SearchItem
-              name="price"
-              activeClick={activeClick}
-              changeActiveFitler={changeActiveFitler}
-              type="input"
-            />
-            <SearchItem
-              name="color"
-              activeClick={activeClick}
-              changeActiveFitler={changeActiveFitler}
-            />
+            <SearchItem name="price" activeClick={activeClick} changeActiveFitler={changeActiveFitler} type="input" />
+            <SearchItem name="color" activeClick={activeClick} changeActiveFitler={changeActiveFitler} />
           </div>
         </div>
-        <div className="w-1/5 flex flex-col gap-3">
+        <div className="w-1/5 flex flex-col gap-3 xs:w-fit">
           <span className="font-semibold text-sm">Sort by</span>
           <div className="w-full">
-            <InputSelect
-              changeValue={changeValue}
-              value={sort}
-              options={sorts}
-            />
+            <InputSelect changeValue={changeValue} value={sort} options={sorts} />
           </div>
         </div>
       </div>
       <div className="mt-8 w-main m-auto">
-        <Masonry
-          breakpointCols={breakpointColumnsObj}
-          className="my-masonry-grid flex mx-[-10px]"
-          columnClassName="my-masonry-grid_column"
-        >
+        <Masonry breakpointCols={breakpointColumnsObj} className="my-masonry-grid flex mx-[-10px]" columnClassName="my-masonry-grid_column">
           {products?.products?.map((el) => (
             <Product key={el._id} pid={el._id} productData={el} normal={true} />
           ))}

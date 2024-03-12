@@ -1,9 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Source+Code+Pro&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Grand+Hotel&family=Quicksand:wght@300;400;500;600;700&family=Source+Code+Pro&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Source+Code+Pro&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Grand+Hotel&family=Quicksand:wght@300;400;500;600;700&family=Source+Code+Pro&display=swap');
 
+a {
+  text-decoration: none !important;
+  color: #212529;
+}
 .custom-slider button.slick-next {
   right: 80px;
   z-index: 10;
@@ -14,7 +18,7 @@
 }
 .custom-slider button.slick-next::before {
   color: gray;
-  content: "\276F";
+  content: '\276F';
   background-color: #ffd3d3;
   width: 80px;
   height: 80px;
@@ -23,9 +27,10 @@
   justify-content: center;
   align-items: center;
 }
+
 .custom-slider button.slick-prev::before {
   color: gray;
-  content: "\276E";
+  content: '\276E';
   background-color: #ffd3d3;
   width: 80px;
   height: 80px;
@@ -36,7 +41,7 @@
 }
 
 .image-slider button.slick-next {
-  right: 0px;
+  right: 20px;
   z-index: 10;
   top: 55px;
 }
@@ -47,7 +52,7 @@
 }
 .image-slider button.slick-next::before {
   color: gray;
-  content: "\276F";
+  content: '\276F';
   background-color: #ffd3d3;
   width: 40px;
   height: 40px;
@@ -58,7 +63,7 @@
 }
 .image-slider button.slick-prev::before {
   color: gray;
-  content: "\276E";
+  content: '\276E';
   background-color: #ffd3d3;
   width: 40px;
   height: 40px;
@@ -70,7 +75,26 @@
 input {
   appearance: none;
 }
-
+@media (min-width: 320px) and (max-width: 1199px) {
+  .custom-slider button.slick-next::before {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+  .custom-slider button.slick-prev::before {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+  .custom-slider button.slick-next {
+    right: 30px;
+    top: 40%;
+  }
+  .custom-slider button.slick-prev {
+    left: 10px;
+    top: 40%;
+  }
+}
 /* Style your items */
 .my-masonry-grid_column > div {
   margin-bottom: 30px;
@@ -80,4 +104,31 @@ input {
 }
 code {
   white-space: initial;
+}
+.w-main {
+  @media (min-width: 320px) and (max-width: 1199px) {
+    width: 100%;
+    padding: 0 15px;
+  }
+}
+select {
+  width: 100%;
+}
+/*Product detail*/
+@media (min-width: 768px) and (max-width: 1023px) {
+  .slick-product-custom .slick-slider {
+    justify-content: center;
+    display: flex;
+  }
+  .slick-product-custom .slick-slider .slick-list {
+    width: 65%;
+  }
+  .login .absolute {
+    width: 100%;
+    right: 0;
+    padding: 0 15px;
+  }
+}
+.z-9 {
+  z-index: 9;
 }

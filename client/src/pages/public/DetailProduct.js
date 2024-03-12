@@ -1,19 +1,19 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { createSearchParams, useParams } from "react-router-dom";
-import { apiGetProduct, apiGetProducts, apiUpdateCart } from "../../apis";
-import { Breadcrumb, Button, CustomSlider, ProductExtraInforItem, ProductInformation, SelectQuantity } from "../../components";
-import Slider from "react-slick";
-import ReactImageMagnify from "react-image-magnify";
-import { formatMoney, formatPrice, renderStarFromNumber } from "../../utils/helpers";
-import { productExtraInfomation } from "../../utils/contants";
-import DOMPurify from "dompurify";
-import clsx from "clsx";
-import { useSelector } from "react-redux";
-import path from "../../utils/path";
-import { toast } from "react-toastify";
-import withBaseComponent from "../../hocs/withBaseComponent";
-import Swal from "sweetalert2";
-import { getCurrent } from "../../store/user/asyncActions";
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { createSearchParams, useParams } from 'react-router-dom';
+import { apiGetProduct, apiGetProducts, apiUpdateCart } from '../../apis';
+import { Breadcrumb, Button, CustomSlider, ProductExtraInforItem, ProductInformation, SelectQuantity } from '../../components';
+import Slider from 'react-slick';
+import ReactImageMagnify from 'react-image-magnify';
+import { formatMoney, formatPrice, renderStarFromNumber } from '../../utils/helpers';
+import { productExtraInfomation } from '../../utils/contants';
+import DOMPurify from 'dompurify';
+import clsx from 'clsx';
+import { useSelector } from 'react-redux';
+import path from '../../utils/path';
+import { toast } from 'react-toastify';
+import withBaseComponent from '../../hocs/withBaseComponent';
+import Swal from 'sweetalert2';
+import { getCurrent } from '../../store/user/asyncActions';
 const settings = {
   dots: false,
   infinite: false,
@@ -35,11 +35,11 @@ const DetailProduct = ({ isQuickView, data, navigate, location, dispatch }) => {
   const [pid, setPid] = useState(null);
   const [category, setCategory] = useState(null);
   const [currentProduct, setCurrentProduct] = useState({
-    title: "",
-    thumb: "",
+    title: '',
+    thumb: '',
     images: [],
-    price: "",
-    color: "",
+    price: '',
+    color: '',
   });
   useEffect(() => {
     if (data) {
@@ -106,25 +106,26 @@ const DetailProduct = ({ isQuickView, data, navigate, location, dispatch }) => {
   );
   const handleChangeQuantity = useCallback(
     (flag) => {
-      if (flag === "minus" && quantity === 1) return;
-      if (flag === "minus") setQuantity((prev) => prev - 1);
-      if (flag === "plus") setQuantity((prev) => prev + 1);
+      if (flag === 'minus' && quantity === 1) return;
+      if (flag === 'minus') setQuantity((prev) => prev - 1);
+      if (flag === 'plus') setQuantity((prev) => prev + 1);
     },
     [quantity]
   );
   const handleClickImage = (e, el) => {
     e.stopPropagation();
     setCurrentImage(el);
+    console.log('click anh', el);
   };
   const handleAddToCart = async () => {
     if (!current)
       return Swal.fire({
-        title: "Almost ...",
-        text: "Please login first!",
-        icon: "info",
-        cancelButtonText: "Not now!",
+        title: 'Almost ...',
+        text: 'Please login first!',
+        icon: 'info',
+        cancelButtonText: 'Not now!',
         showCancelButton: true,
-        confirmButtonText: "Go login page",
+        confirmButtonText: 'Go login page',
       }).then(async (rs) => {
         if (rs.isConfirmed)
           navigate({
@@ -159,19 +160,22 @@ const DetailProduct = ({ isQuickView, data, navigate, location, dispatch }) => {
       )}
       <div
         onClick={(e) => e.stopPropagation()}
-        className={clsx("bg-white m-auto mt-4 flex", isQuickView ? "max-w-[900px] gap-16 p-8 max-h-[80vh] overflow-y-auto" : "w-main")}
+        className={clsx(
+          'bg-white m-auto mt-4 flex xs:flex-col mdcus:flex-col',
+          isQuickView ? 'max-w-[900px] gap-16 p-8 max-h-[80vh] overflow-y-auto' : 'w-main'
+        )}
       >
-        <div className={clsx("flex flex-col gap-4", isQuickView ? "w-1/2" : "w-2/5")}>
-          <div className="w-[458px] h-[458px] flex items-center border overflow-hidden">
+        <div className={clsx('flex flex-col gap-4 xs:w-full mdcus:w-full', isQuickView ? 'w-1/2' : 'w-2/5')}>
+          <div className="w-[458px] h-[458px] flex items-center border overflow-hidden xs:w-full mdcus:w-full">
             <ReactImageMagnify
               {...{
                 smallImage: {
-                  alt: "Zoom img product",
+                  alt: 'Zoom img product',
                   isFluidWidth: true,
-                  src: currentProduct.thumb || currentImage || "default-image-url", // Thay "default-image-url" bằng URL mặc định nếu cả hai đều là null.
+                  src: currentImage || 'default-image-url', // Thay "default-image-url" bằng URL mặc định nếu cả hai đều là null.
                 },
                 largeImage: {
-                  src: currentProduct.thumb || currentImage || "default-image-url",
+                  src: currentProduct.thumb || currentImage || 'default-image-url',
                   width: 1800,
                   height: 1500,
                 },
@@ -179,8 +183,8 @@ const DetailProduct = ({ isQuickView, data, navigate, location, dispatch }) => {
             />
           </div>
 
-          <div className="w-[458px]">
-            <Slider className="image-slider flex gap-2 justify-between" {...settings}>
+          <div className="w-[458px] xs:w-full mdcus:w-full slick-product-custom">
+            <Slider className="image-slider flex gap-2 justify-between overflow-hidden" {...settings}>
               {currentProduct.images?.length === 0 &&
                 product?.images?.map((el) => (
                   <div className="flex-1" key={el}>
@@ -206,7 +210,12 @@ const DetailProduct = ({ isQuickView, data, navigate, location, dispatch }) => {
             </Slider>
           </div>
         </div>
-        <div className={clsx("pr-[24px] flex flex-col gap-4", isQuickView ? "w-1/2" : "w-2/5")}>
+        <div
+          className={clsx(
+            'pr-[24px] flex flex-col xs:w-full gap-4 xs:pr-0 xs:mb-6 mdcus:w-full lgcus:w-3/5 lgcus:pl-[85px]',
+            isQuickView ? 'w-1/2' : 'w-2/5'
+          )}
+        >
           <div className="flex items-center justify-between">
             <h2 className="text-[30px] font-semibold">{`${formatMoney(formatPrice(currentProduct.price || product?.price))} VNĐ`}</h2>
             {/* <span className="text-sm text-main">{`In stock: ${product?.quantity}`}</span> */}
@@ -238,7 +247,7 @@ const DetailProduct = ({ isQuickView, data, navigate, location, dispatch }) => {
             <div className="flex flex-wrap gap-4 items-center">
               <div
                 onClick={() => setVariant(null)}
-                className={clsx("flex items-center gap-2 p-2 border cursor-pointer", !variant && "border-red-500")}
+                className={clsx('flex items-center gap-2 p-2 border cursor-pointer', !variant && 'border-red-500')}
               >
                 <img src={product?.thumb} alt="thumb" className="w-8 h-8 rounded-md object-cover" />
                 <span className="flex flex-col">
@@ -250,7 +259,7 @@ const DetailProduct = ({ isQuickView, data, navigate, location, dispatch }) => {
                 <div
                   key={el.sku}
                   onClick={() => setVariant(el.sku)}
-                  className={clsx("flex items-center gap-2 p-2 border cursor-pointer", variant === el.sku && "border-red-500")}
+                  className={clsx('flex items-center gap-2 p-2 border cursor-pointer', variant === el.sku && 'border-red-500')}
                 >
                   <img src={el?.thumb} alt="thumb" className="w-8 h-8 rounded-md object-cover" />
                   <span className="flex flex-col">
@@ -273,7 +282,7 @@ const DetailProduct = ({ isQuickView, data, navigate, location, dispatch }) => {
           </div>
         </div>
         {!isQuickView && (
-          <div className=" w-1/5">
+          <div className=" w-1/5 xs:w-full mdcus:w-full lgcus:hidden">
             {productExtraInfomation.map((el) => (
               <ProductExtraInforItem key={el.id} title={el.title} icon={el.icon} sub={el.sub} />
             ))}

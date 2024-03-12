@@ -1,10 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { getNewProducts } from "./asyncActions";
+import { createSlice } from '@reduxjs/toolkit';
+import { getNewProducts } from './asyncActions';
+import { getFeatureProducts } from './asyncActions';
 export const productSlice = createSlice({
-  name: "app",
+  name: 'app',
   initialState: {
     newProducts: null,
-    errorMessage: "",
+    featureProducts: null,
+    errorMessage: '',
     currentCart: [],
     dealDaily: null,
   },
@@ -22,6 +24,17 @@ export const productSlice = createSlice({
       state.newProducts = action.payload;
     });
     builder.addCase(getNewProducts.rejected, (state, action) => {
+      state.isLoading = false;
+      state.errorMessage = action.payload.message;
+    });
+    builder.addCase(getFeatureProducts.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(getFeatureProducts.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.featureProducts = action.payload;
+    });
+    builder.addCase(getFeatureProducts.rejected, (state, action) => {
       state.isLoading = false;
       state.errorMessage = action.payload.message;
     });

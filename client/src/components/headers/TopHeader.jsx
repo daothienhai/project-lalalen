@@ -29,8 +29,8 @@ const TopHeader = () => {
       });
   }, [mes]);
   return (
-    <div className="h-[38px] py-[10px] w-full bg-main flex items-center justify-center">
-      <div className="w-main flex items-center justify-between text-xs text-white">
+    <div className="xs:h-[55px] h-[38px] py-[10px] w-full bg-main flex items-center justify-center">
+      <div className="w-main flex items-center justify-between text-xs text-white py-16 xs:w-full md:flex xs:flex-col sm:flex-row xs:px-4 px-4 xl:px-0 xs:mt-[10px]">
         <span>GỌI NGAY: 0989764356</span>
         {isLoggedIn && current ? (
           <div className="flex gap-4 text-sm items-center">
@@ -40,7 +40,7 @@ const TopHeader = () => {
             </span>
           </div>
         ) : (
-          <Link className="hover:text-gray-800" to={`/${path.LOGIN}`}>
+          <Link className="text-white hover:text-gray-800" to={`/${path.LOGIN}`}>
             Đăng nhập
           </Link>
         )}
